@@ -1,0 +1,1127 @@
+{
+    "assembly": {
+        "attributes": {
+            "name": "Assembly"
+        },
+        "graph": {
+            "attributes": {
+                "name": "Graph"
+            },
+            "dea": {},
+            "dna": {},
+            "edge": {
+                "0": {
+                    "11": {},
+                    "12": {},
+                    "13": {}
+                },
+                "1": {
+                    "10": {},
+                    "13": {},
+                    "9": {}
+                },
+                "10": {},
+                "11": {},
+                "12": {},
+                "13": {},
+                "2": {
+                    "10": {},
+                    "8": {}
+                },
+                "3": {
+                    "12": {},
+                    "7": {},
+                    "8": {}
+                },
+                "4": {
+                    "11": {},
+                    "6": {},
+                    "7": {}
+                },
+                "5": {
+                    "6": {},
+                    "9": {}
+                },
+                "6": {},
+                "7": {},
+                "8": {},
+                "9": {}
+            },
+            "max_node": 13,
+            "node": {
+                "0": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    4.0108539487644155,
+                                    -0.0017689975628106189,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    -0.00087533970324228032,
+                                    0.99999961689012862,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    -0.99999961689012862,
+                                    -0.00087533970324228032,
+                                    0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 0,
+                            "length": 2.0217899524479384,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "b612d062-4647-4c32-912f-c6ff0b1adcd8"
+                    },
+                    "type": "part_beam"
+                },
+                "1": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    4.0090841957474215,
+                                    2.0200201803174389,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    -0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 1,
+                            "length": 1.4796384558562874,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "3c09064a-a462-4078-a3ed-c89fe9de031c"
+                    },
+                    "type": "part_beam"
+                },
+                "10": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                1,
+                                2
+                            ],
+                            "cross_beam_key": 2,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": 0.0,
+                            "key": 10,
+                            "main_beam_key": 1
+                        },
+                        "dtype": "compas_timber.connections/LButtJoint",
+                        "guid": "0c037c64-1131-47f6-971b-3bf8f2ae6864"
+                    },
+                    "type": "joint"
+                },
+                "11": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                4,
+                                0
+                            ],
+                            "cross_beam_key": 0,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": null,
+                            "key": 11,
+                            "main_beam_key": 4
+                        },
+                        "dtype": "compas_timber.connections/TButtJoint",
+                        "guid": "08e21bd7-c1a4-4912-bbac-4efa62940bf4"
+                    },
+                    "type": "joint"
+                },
+                "12": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                0,
+                                3
+                            ],
+                            "cross_beam_key": 3,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": 0.0,
+                            "key": 12,
+                            "main_beam_key": 0
+                        },
+                        "dtype": "compas_timber.connections/LButtJoint",
+                        "guid": "5abbcdb7-1d9f-4fa6-b00d-237ef1fee683"
+                    },
+                    "type": "joint"
+                },
+                "13": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                1,
+                                0
+                            ],
+                            "cross_beam_key": 0,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": 0.0,
+                            "key": 13,
+                            "main_beam_key": 1
+                        },
+                        "dtype": "compas_timber.connections/LButtJoint",
+                        "guid": "3c25190a-0cbe-45be-907c-3d052d74e3a5"
+                    },
+                    "type": "joint"
+                },
+                "2": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    5.4887226516037089,
+                                    2.0200201803174389,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    0.0,
+                                    -1.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    1.0,
+                                    0.0,
+                                    -0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 2,
+                            "length": 2.0224413127749554,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "36c6711a-8d32-4d0e-adb0-6f231941755a"
+                    },
+                    "type": "part_beam"
+                },
+                "3": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    5.4887226516037089,
+                                    -0.0024211324575164062,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    -0.99999990264167016,
+                                    0.00044126709630032521,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    -0.00044126709630032521,
+                                    -0.99999990264167016,
+                                    0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 3,
+                            "length": 1.4778688467221361,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "a250dca1-2ee2-42d7-b79a-ea170e854aec"
+                    },
+                    "type": "part_beam"
+                },
+                "4": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    4.9176992008482925,
+                                    -0.0021691585729504154,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    -0.53538609189171082,
+                                    0.84460744290405143,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    -0.84460744290405143,
+                                    -0.53538609189171082,
+                                    0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 4,
+                            "length": 1.6961570653706008,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "445f0699-845a-4322-8fc5-1946a7601521"
+                    },
+                    "type": "part_beam"
+                },
+                "5": {
+                    "part": {
+                        "data": {
+                            "frame": {
+                                "point": [
+                                    4.3567636004804982,
+                                    0.88274434634551213,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    0.53542154470761993,
+                                    0.84458496876448508,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    -0.84458496876448508,
+                                    0.53542154470761993,
+                                    -0.0
+                                ]
+                            },
+                            "height": 0.12,
+                            "key": 5,
+                            "length": 1.3465499340292659,
+                            "width": 0.059999999999999998
+                        },
+                        "dtype": "compas_timber.parts/Beam",
+                        "guid": "ddbdf3c6-4075-4af7-b49d-85738a24eb23"
+                    },
+                    "type": "part_beam"
+                },
+                "6": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                5,
+                                4
+                            ],
+                            "cross_beam_key": 4,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": null,
+                            "key": 6,
+                            "main_beam_key": 5
+                        },
+                        "dtype": "compas_timber.connections/TButtJoint",
+                        "guid": "e6f9e2bc-dca5-44ff-83f0-ac71821d5c4e"
+                    },
+                    "type": "joint"
+                },
+                "7": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                4,
+                                3
+                            ],
+                            "cross_beam_key": 3,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": null,
+                            "key": 7,
+                            "main_beam_key": 4
+                        },
+                        "dtype": "compas_timber.connections/TButtJoint",
+                        "guid": "6ad33973-4c60-4aaa-a7c8-797bc328432e"
+                    },
+                    "type": "joint"
+                },
+                "8": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                2,
+                                3
+                            ],
+                            "cross_beam_key": 3,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": 0.0,
+                            "key": 8,
+                            "main_beam_key": 2
+                        },
+                        "dtype": "compas_timber.connections/LButtJoint",
+                        "guid": "d765b2ae-f4e3-453d-942c-8dcff9aa7132"
+                    },
+                    "type": "joint"
+                },
+                "9": {
+                    "part": {
+                        "data": {
+                            "beams": [
+                                5,
+                                1
+                            ],
+                            "cross_beam_key": 1,
+                            "frame": {
+                                "point": [
+                                    0.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "xaxis": [
+                                    1.0,
+                                    0.0,
+                                    0.0
+                                ],
+                                "yaxis": [
+                                    0.0,
+                                    1.0,
+                                    0.0
+                                ]
+                            },
+                            "gap": null,
+                            "key": 9,
+                            "main_beam_key": 5
+                        },
+                        "dtype": "compas_timber.connections/TButtJoint",
+                        "guid": "1c594892-c37b-4a9b-bea1-426603c05b88"
+                    },
+                    "type": "joint"
+                }
+            }
+        }
+    },
+    "beams": {
+        "0": {
+            "data": {
+                "frame": {
+                    "point": [
+                        4.0108539487644155,
+                        -0.0017689975628106189,
+                        0.0
+                    ],
+                    "xaxis": [
+                        -0.00087533970324228032,
+                        0.99999961689012862,
+                        0.0
+                    ],
+                    "yaxis": [
+                        -0.99999961689012862,
+                        -0.00087533970324228032,
+                        0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 0,
+                "length": 2.0217899524479384,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "b612d062-4647-4c32-912f-c6ff0b1adcd8"
+        },
+        "1": {
+            "data": {
+                "frame": {
+                    "point": [
+                        4.0090841957474215,
+                        2.0200201803174389,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        -0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 1,
+                "length": 1.4796384558562874,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "3c09064a-a462-4078-a3ed-c89fe9de031c"
+        },
+        "2": {
+            "data": {
+                "frame": {
+                    "point": [
+                        5.4887226516037089,
+                        2.0200201803174389,
+                        0.0
+                    ],
+                    "xaxis": [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        1.0,
+                        0.0,
+                        -0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 2,
+                "length": 2.0224413127749554,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "36c6711a-8d32-4d0e-adb0-6f231941755a"
+        },
+        "3": {
+            "data": {
+                "frame": {
+                    "point": [
+                        5.4887226516037089,
+                        -0.0024211324575164062,
+                        0.0
+                    ],
+                    "xaxis": [
+                        -0.99999990264167016,
+                        0.00044126709630032521,
+                        0.0
+                    ],
+                    "yaxis": [
+                        -0.00044126709630032521,
+                        -0.99999990264167016,
+                        0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 3,
+                "length": 1.4778688467221361,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "a250dca1-2ee2-42d7-b79a-ea170e854aec"
+        },
+        "4": {
+            "data": {
+                "frame": {
+                    "point": [
+                        4.9176992008482925,
+                        -0.0021691585729504154,
+                        0.0
+                    ],
+                    "xaxis": [
+                        -0.53538609189171082,
+                        0.84460744290405143,
+                        0.0
+                    ],
+                    "yaxis": [
+                        -0.84460744290405143,
+                        -0.53538609189171082,
+                        0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 4,
+                "length": 1.6961570653706008,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "445f0699-845a-4322-8fc5-1946a7601521"
+        },
+        "5": {
+            "data": {
+                "frame": {
+                    "point": [
+                        4.3567636004804982,
+                        0.88274434634551213,
+                        0.0
+                    ],
+                    "xaxis": [
+                        0.53542154470761993,
+                        0.84458496876448508,
+                        0.0
+                    ],
+                    "yaxis": [
+                        -0.84458496876448508,
+                        0.53542154470761993,
+                        -0.0
+                    ]
+                },
+                "height": 0.12,
+                "key": 5,
+                "length": 1.3465499340292659,
+                "width": 0.059999999999999998
+            },
+            "dtype": "compas_timber.parts/Beam",
+            "guid": "ddbdf3c6-4075-4af7-b49d-85738a24eb23"
+        }
+    },
+    "building_plan": {
+        "data": {
+            "steps": [
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            0
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                4.0108539487644155,
+                                -0.0017689975628106189,
+                                0.0
+                            ],
+                            "xaxis": [
+                                -0.00087533970324228032,
+                                0.99999961689012862,
+                                0.0
+                            ],
+                            "yaxis": [
+                                -0.99999961689012862,
+                                -0.00087533970324228032,
+                                0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "8a1540ec-21b2-4aa9-955a-feb57bc59467"
+                },
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            1
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                4.0090841957474215,
+                                2.0200201803174389,
+                                0.0
+                            ],
+                            "xaxis": [
+                                1.0,
+                                0.0,
+                                0.0
+                            ],
+                            "yaxis": [
+                                0.0,
+                                1.0,
+                                -0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "477ff16f-c203-43b0-9689-00a1c3f770ed"
+                },
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            2
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                5.4887226516037089,
+                                2.0200201803174389,
+                                0.0
+                            ],
+                            "xaxis": [
+                                0.0,
+                                -1.0,
+                                0.0
+                            ],
+                            "yaxis": [
+                                1.0,
+                                0.0,
+                                -0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "bf9cd26c-8436-47e2-8814-1e5bb395ae06"
+                },
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            3
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                5.4887226516037089,
+                                -0.0024211324575164062,
+                                0.0
+                            ],
+                            "xaxis": [
+                                -0.99999990264167016,
+                                0.00044126709630032521,
+                                0.0
+                            ],
+                            "yaxis": [
+                                -0.00044126709630032521,
+                                -0.99999990264167016,
+                                0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "4e9c2914-4d1c-4a10-9b8f-6ca2387836b0"
+                },
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            4
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                4.9176992008482925,
+                                -0.0021691585729504154,
+                                0.0
+                            ],
+                            "xaxis": [
+                                -0.53538609189171082,
+                                0.84460744290405143,
+                                0.0
+                            ],
+                            "yaxis": [
+                                -0.84460744290405143,
+                                -0.53538609189171082,
+                                0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "979ab3da-200c-4c47-9183-ccd306647bb5"
+                },
+                {
+                    "data": {
+                        "actor": "HUMAN",
+                        "element_ids": [
+                            5
+                        ],
+                        "elements_held": [],
+                        "geometry": null,
+                        "instructions": [],
+                        "is_built": false,
+                        "is_planned": false,
+                        "location": {
+                            "point": [
+                                4.3567636004804982,
+                                0.88274434634551213,
+                                0.0
+                            ],
+                            "xaxis": [
+                                0.53542154470761993,
+                                0.84458496876448508,
+                                0.0
+                            ],
+                            "yaxis": [
+                                -0.84458496876448508,
+                                0.53542154470761993,
+                                -0.0
+                            ]
+                        },
+                        "priority": 0
+                    },
+                    "dtype": "compas_timber.planning/Step",
+                    "guid": "bf941d45-3c78-451e-a44a-bce7a369184c"
+                }
+            ]
+        },
+        "dtype": "compas_timber.planning/BuildingPlan",
+        "guid": "6aba21f0-5ae2-4374-ac70-0614965cf222"
+    },
+    "joints": {
+        "6": {
+            "data": {
+                "beams": [
+                    5,
+                    4
+                ],
+                "cross_beam_key": 4,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": null,
+                "key": 6,
+                "main_beam_key": 5
+            },
+            "dtype": "compas_timber.connections/TButtJoint",
+            "guid": "e6f9e2bc-dca5-44ff-83f0-ac71821d5c4e"
+        },
+        "7": {
+            "data": {
+                "beams": [
+                    4,
+                    3
+                ],
+                "cross_beam_key": 3,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": null,
+                "key": 7,
+                "main_beam_key": 4
+            },
+            "dtype": "compas_timber.connections/TButtJoint",
+            "guid": "6ad33973-4c60-4aaa-a7c8-797bc328432e"
+        },
+        "8": {
+            "data": {
+                "beams": [
+                    2,
+                    3
+                ],
+                "cross_beam_key": 3,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": 0.0,
+                "key": 8,
+                "main_beam_key": 2
+            },
+            "dtype": "compas_timber.connections/LButtJoint",
+            "guid": "d765b2ae-f4e3-453d-942c-8dcff9aa7132"
+        },
+        "9": {
+            "data": {
+                "beams": [
+                    5,
+                    1
+                ],
+                "cross_beam_key": 1,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": null,
+                "key": 9,
+                "main_beam_key": 5
+            },
+            "dtype": "compas_timber.connections/TButtJoint",
+            "guid": "1c594892-c37b-4a9b-bea1-426603c05b88"
+        },
+        "10": {
+            "data": {
+                "beams": [
+                    1,
+                    2
+                ],
+                "cross_beam_key": 2,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": 0.0,
+                "key": 10,
+                "main_beam_key": 1
+            },
+            "dtype": "compas_timber.connections/LButtJoint",
+            "guid": "0c037c64-1131-47f6-971b-3bf8f2ae6864"
+        },
+        "11": {
+            "data": {
+                "beams": [
+                    4,
+                    0
+                ],
+                "cross_beam_key": 0,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": null,
+                "key": 11,
+                "main_beam_key": 4
+            },
+            "dtype": "compas_timber.connections/TButtJoint",
+            "guid": "08e21bd7-c1a4-4912-bbac-4efa62940bf4"
+        },
+        "12": {
+            "data": {
+                "beams": [
+                    0,
+                    3
+                ],
+                "cross_beam_key": 3,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": 0.0,
+                "key": 12,
+                "main_beam_key": 0
+            },
+            "dtype": "compas_timber.connections/LButtJoint",
+            "guid": "5abbcdb7-1d9f-4fa6-b00d-237ef1fee683"
+        },
+        "13": {
+            "data": {
+                "beams": [
+                    1,
+                    0
+                ],
+                "cross_beam_key": 0,
+                "frame": {
+                    "point": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "xaxis": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    "yaxis": [
+                        0.0,
+                        1.0,
+                        0.0
+                    ]
+                },
+                "gap": 0.0,
+                "key": 13,
+                "main_beam_key": 1
+            },
+            "dtype": "compas_timber.connections/LButtJoint",
+            "guid": "3c25190a-0cbe-45be-907c-3d052d74e3a5"
+        }
+    }
+}
