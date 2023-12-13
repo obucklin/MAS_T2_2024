@@ -1,4 +1,12 @@
 from timber_assembly_planner import TimberAssemblyPlanner
+import time
+
+from compas_eve import Message
+from compas_eve import Publisher
+from compas_eve import Topic
+from compas_eve.mqtt import MqttTransport
+
+
 
 class TimberAssemblyExecutioner(object):
     def __init__(self, ros_client, assembly, building_plan, scene_objects = None, group = None, planner_id = None):
@@ -7,11 +15,15 @@ class TimberAssemblyExecutioner(object):
         self.building_plan = building_plan
         self.robot = self.ros_client.load_robot()
 
+        self.topic = Topic("/compas_eve/hello_world/", Message)
+        self.tx = MqttTransport("broker.hivemq.com")
+        self.publisher = Publisher(self.topic, transport=self.tx)
+
         self.planner = TimberAssemblyPlanner(self.robot, self.assembly, self.building_plan)
         self.planner.plan_robot_steps()
 
 
-    def __main__(self):
+    def execute(self):
         step, index = self.get_current_step()
         if step["actor"] == "ROBOT":
             self.execute_step(index)
@@ -29,6 +41,7 @@ class TimberAssemblyExecutioner(object):
         self.execute_substep(self.planner.trajectories[index]["move"])
         self.open_gripper()
         self.execute_substep(self.planner.trajectories[index]["retract"])
+        self.building_plan.steps[index]["is_built"] = "true"
 
 
     def execute_substep(self, configurations):
@@ -38,11 +51,13 @@ class TimberAssemblyExecutioner(object):
 
 
     def send_configs(self, trajectories):
-        configs = []
+        configs = {}
+        index = 0
         for trajectory in trajectories:
             for config in trajectory.points:
-                configs.append(config)
-        send(configs.to_json())
+                configs[index] = config
+                index += 1
+        self.publisher.publish(configs.to_json())
 
 
     def await_command(self):
@@ -54,3 +69,8 @@ class TimberAssemblyExecutioner(object):
 
     def execute_trajectory(self, trajectory):
         self.ros_client.execute_trajectory(trajectory)
+
+
+if __name__ == '__main__':
+
+    pass

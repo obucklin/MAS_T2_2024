@@ -42,8 +42,6 @@ class TimberAssemblyPlanner(object):
     def get_trajectory(self, target_frame, linear = False, path_constraints = None, planner_id = None):
         if path_constraints:
             self.path_constraints = list(path_constraints)
-        print("beam mesh count is {}".format(len(self.attached_beam_meshes)))
-        print(self.attached_collision_meshes())
 
         planner_id = str(planner_id) if planner_id else "RRTConnect"
         if (self.robot.client and self.robot.client.is_connected):
@@ -98,7 +96,6 @@ class TimberAssemblyPlanner(object):
     
 
     def pick(self, mesh, pickup_frame = None):
-        print("pick deez")
         if pickup_frame:
             self.pickup_frame = pickup_frame
         pickup_frame_offset = Frame(self.pickup_frame.point - self.pickup_frame.zaxis * 0.2, self.pickup_frame.xaxis, self.pickup_frame.yaxis)
@@ -109,7 +106,6 @@ class TimberAssemblyPlanner(object):
         self.add_path_to_position([self.pickup_frame, pickup_frame_offset], linear=True)
 
     def place(self, frame, approach_vector = None):
-        print("place deez")
         if approach_vector:
             approach_frame = Frame(frame.point - approach_vector, frame.xaxis, frame.yaxis)
             self.add_path_to_position(approach_frame)
