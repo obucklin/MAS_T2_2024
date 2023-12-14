@@ -3,6 +3,7 @@ import time
 
 from compas_eve import Message
 from compas_eve import Publisher
+from compas_eve import Subscriber
 from compas_eve import Topic
 from compas_eve.mqtt import MqttTransport
 
@@ -14,16 +15,28 @@ class TimberAssemblyExecutioner(object):
         self.assembly = assembly
         self.building_plan = building_plan
         self.robot = self.ros_client.load_robot()
-
-        self.topic = Topic("/compas_eve/hello_world/", Message)
+        self.topic = Topic("configs", Message)
         self.tx = MqttTransport("broker.hivemq.com")
         self.publisher = Publisher(self.topic, transport=self.tx)
 
+        self.AR_User_topic = Topic("/compas_eve/hello_world/", Message)
+
+        self.subcriber = Subscriber(self.AR_User_topic, callback=lambda msg: print(f"Received message: {msg.text}"), transport=self.tx)
+        self.subcriber.subscribe()
+
+        self.AR_agents = []
+
         self.planner = TimberAssemblyPlanner(self.robot, self.assembly, self.building_plan)
-        self.planner.plan_robot_steps()
+        self.planner.plan_robot_assembly()
+
+    def udpate_AR_users(self):
+        self.AR_agents.append(user_id)
+        print("User {} added".format(user_id))
 
 
-    def execute(self):
+
+    def execute_(self):
+
         step, index = self.get_current_step()
         if step["actor"] == "ROBOT":
             self.execute_step(index)
@@ -69,6 +82,18 @@ class TimberAssemblyExecutioner(object):
 
     def execute_trajectory(self, trajectory):
         self.ros_client.execute_trajectory(trajectory)
+
+
+class ARUser(object):
+    def __init__(self, id):
+        self.id = id
+        self.confirm_step = {}
+        self.confirm_step.
+
+
+    def send_command(self, command):
+        self.ros_client.send_command(command)
+
 
 
 if __name__ == '__main__':
