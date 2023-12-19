@@ -6,7 +6,7 @@ from compas_eve import Publisher
 from compas_eve import Subscriber
 from compas_eve import Topic
 from compas_eve.mqtt import MqttTransport
-
+from executor_communicator import ExecutorCommunicator
 
 
 class TimberAssemblyExecutioner(object):
@@ -15,25 +15,28 @@ class TimberAssemblyExecutioner(object):
         self.assembly = assembly
         self.building_plan = building_plan
         self.robot = self.ros_client.load_robot()
-        self.topic = Topic("configs", Message)
-        self.tx = MqttTransport("broker.hivemq.com")
-        self.publisher = Publisher(self.topic, transport=self.tx)
-
-        self.AR_User_topic = Topic("/compas_eve/hello_world/", Message)
-
-        self.subcriber = Subscriber(self.AR_User_topic, callback=lambda msg: print(f"Received message: {msg.text}"), transport=self.tx)
-        self.subcriber.subscribe()
-
-        self.AR_agents = []
-
+        self.comms = ExecutorCommunicator()
         self.planner = TimberAssemblyPlanner(self.robot, self.assembly, self.building_plan)
         self.planner.plan_robot_assembly()
 
-    def udpate_AR_users(self):
-        self.AR_agents.append(user_id)
-        print("User {} added".format(user_id))
+    def add_AR_users(self, user_id):
+        if user_id not in self.AR_users.keys():
+            self.AR_users[user_id] = ARUser(user_id)
+            print("User {} added".format(user_id))
+        else:
+            self.AR_users[user_id].last_seen = time.monotonic()
 
+    def cull_inactive_users(self):
+        if time.monotonic() - self.user_timeout_start > 60:  # every 60 seconds
+            for user in self.AR_users.values():
+                if self.user_timeout_start > user.last_seen:
+                    print("User {} removed".format(user.id))
+                    del user
+            self.user_timeout_start = time.monotonic()
 
+    def run(self):
+        while True:
+            self.execute_()
 
     def execute_(self):
 
@@ -49,21 +52,21 @@ class TimberAssemblyExecutioner(object):
             
 
     def execute_step(self, index):
-        self.execute_substep(self.planner.trajectories[index]["pickup"])
+        self.execute_robot_motion(self.planner.trajectories[index]["pickup"])
         self.close_gripper()
-        self.execute_substep(self.planner.trajectories[index]["move"])
+        self.execute_robot_motion(self.planner.trajectories[index]["move"])
         self.open_gripper()
-        self.execute_substep(self.planner.trajectories[index]["retract"])
+        self.execute_robot_motion(self.planner.trajectories[index]["retract"])
         self.building_plan.steps[index]["is_built"] = "true"
 
 
-    def execute_substep(self, configurations):
-        self.send_configs(configurations)
+    def execute_robot_motion(self, configurations):
+        self.send_configs_to_app(configurations)
         self.await_command()
         self.execute_trajectory(configurations)
 
 
-    def send_configs(self, trajectories):
+    def send_configs_to_app(self, trajectories):
         configs = {}
         index = 0
         for trajectory in trajectories:
@@ -88,14 +91,13 @@ class ARUser(object):
     def __init__(self, id):
         self.id = id
         self.confirm_step = {}
-        self.confirm_step.
-
+        self.last_seen = time.monotonic()
 
     def send_command(self, command):
         self.ros_client.send_command(command)
 
 
-
 if __name__ == '__main__':
-
+    executioner = TimberAssemblyExecutioner()
+    executioner.run()
     pass
