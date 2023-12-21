@@ -1,5 +1,7 @@
 import time
 import random
+import threading
+import os
 
 from compas_eve import Message
 from compas_eve import Publisher
@@ -29,21 +31,28 @@ class MockAR(object):
         self.interface_topic = Topic("/{}/interface_topic".format(self.server_topic), Message)
         self.interface_subscriber = Subscriber(self.interface_topic, callback=lambda msg: self.respond(msg['text']), transport=self.tx)        
         self.interface_subscriber.subscribe()
-        print("my name is cain, my number is {}".format(self.id))
+        print("my name is BOB, my number is {}".format(self.id))
+        self.start_check_in()
 
-    def check_in(self, interval = 2):
-        if time.monotonic() - self._start_time > interval:
+    def start_check_in(self, interval = 1):
+        thread = threading.Thread(target=self.check_in, args=(interval,))
+        thread.start()
+
+    def check_in(self, interval = 1):
             self.user_checkin_publisher.publish(Message(text=str(self.id)))
-            self._start_time = time.monotonic()
+            time.sleep(interval)
+
 
     def respond(self, name):
         print("publishing message: {} on topic: {}".format(name, self.user_data_publisher.topic.name))
-        self.user_data_publisher.publish(Message(text="howdy {}, my name is cain #{}".format(name, self.id)))
+        self.user_data_publisher.publish(Message(text="howdy {}, my number is {}".format(name, self.id)))
+
 
     def run(self):
         print("running")
         while True:
             self.check_in()
+
 
 if __name__ == "__main__":
     ar = MockAR()

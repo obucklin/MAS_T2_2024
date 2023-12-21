@@ -1,4 +1,5 @@
 import time
+import threading
 
 from compas_eve import Message
 from compas_eve import Publisher
@@ -11,65 +12,115 @@ class ExecutorCommunicator(object):
         self.tx = MqttTransport("broker.hivemq.com")
         self.topic_top_directory = "T2_command_test"
 
-        self.user_checkin_topic = Topic("/{}/user_checkin_topic".format(self.topic_top_directory), Message)
-        self.user_checkin_subcriber = Subscriber(self.user_checkin_topic, callback=lambda msg: self.subscribe_to_AR_user(msg['text']), transport=self.tx)
-        self.user_checkin_subcriber.subscribe()
+        self.initialize_mqtt()
+
         self.AR_users = {}
-        self.user_subscriptions = {}
-        self.user_timeout_start = time.monotonic()
-
-        self.interface_topic = Topic("/{}/interface_topic".format(self.topic_top_directory), Message)
-        self.interface_publisher = Publisher(self.interface_topic, transport=self.tx)
+        self.users_to_add = []        
+        self.users_to_cull = []
+        self.print_flag = False
 
 
-        self.command_topic = Topic("/{}/command_topic".format(self.topic_top_directory), Message)
-        self.command_publisher = Publisher(self.command_topic, transport=self.tx)
 
+    def initialize_mqtt(self):
+        self.user_checkin_topic = Topic("/{}/user_checkin_topic".format(self.topic_top_directory), Message)
+        user_checkin_subcriber = Subscriber(self.user_checkin_topic, callback=lambda msg: self.add_AR_user_id(msg['text']), transport=self.tx)
+        user_checkin_subcriber.subscribe()
 
-    def subscribe_to_AR_user(self, user_id):
+        interface_topic = Topic("/{}/interface_topic".format(self.topic_top_directory), Message)
+        self.interface_publisher = Publisher(interface_topic, transport=self.tx)
+
+        command_topic = Topic("/{}/command_topic".format(self.topic_top_directory), Message)
+        self.command_publisher = Publisher(command_topic, transport=self.tx)
+
+    def add_AR_user_id(self, user_id):
         if user_id not in self.AR_users.keys():
-            self.AR_users[user_id] = ARUser(user_id)
-            
-            sub = Subscriber(Topic("/{}/user_data_topic/{}".format(self.topic_top_directory, user_id), Message), callback=lambda msg: print(f"Received DATA message: {msg.text}"), transport=self.tx)
-            print("Subscribing to user {}".format(sub.topic.name))
-            sub.subscribe()
-            self.user_subscriptions[user_id] = sub
-            print("User {} added".format(user_id))
-        else:
-            self.AR_users[user_id].last_seen = time.monotonic()
+            self.users_to_add.append(user_id)
 
-    def cull_inactive_users(self):
-        if time.monotonic() - self.user_timeout_start > 5:  # every 60 seconds
-            to_cull = []
+    def send_to_robot(self, command):
+        self.command_publisher.publish(Message(text=command))
+
+
+    def send_to_interface(self, user_id, message):
+        msg = Message(text="{}: {}".format(user_id, message))
+        self.interface_publisher.publish(msg)
+
+
+    def manage_users(self):
+            while len(self.users_to_add) > 0:
+                id = self.users_to_add.pop()
+                self.AR_users[id] = ARUser(id, self)
+                print("User {} added".format(id))
+                self.print_flag = True 
             for user in self.AR_users.values():
-                if self.user_timeout_start > user.last_seen:
-                    self.user_subscriptions[user.id].unsubscribe()
-                    print("User {} removed".format(user.id))
-                    to_cull.append(user.id)
-            for key in to_cull:
-                del self.AR_users[key]
-            self.user_timeout_start = time.monotonic()
-            print("Current users: {}".format(self.AR_users.keys()))
+                if user.active_flags["to_delete"]:
+                    self.users_to_cull.append(user.id)
+            while len(self.users_to_cull) > 0:
+                id = self.users_to_cull.pop()
+                print("User {} removed".format(id))
+                del self.AR_users[id]
+                self.print_flag = True
+
+
+    def test_messages(self, message, publisher):
+        while True:
+            publisher.publish(Message(text=message))
+            time.sleep(0.1)
+            print("user count = {}".format(len(self.AR_users)))
+            for user in self.AR_users.values():
+                print("user {}: {}".format(user.id, user.message.text))
+            time.sleep(1.9)
+
 
     def run(self):
         print("running")
-        message_timeout = time.monotonic()
+        thread = threading.Thread(target=self.test_messages, args=("master comms", self.interface_publisher), daemon=True)
+        thread.start()
         while True:
-            self.cull_inactive_users()
-            if time.monotonic() - message_timeout > 5:
-                print("publishing")
-                self.interface_publisher.publish(Message(text="Albuquerque"))
-                message_timeout = time.monotonic()
+            self.manage_users()
+            if self.print_flag:
+                print("AR users: {}".format(self.AR_users.keys()))
+                self.print_flag = False
 
 
 class ARUser(object):
-    def __init__(self, id):
+    def __init__(self, id, parent):
         self.id = id
+        self.parent = parent
         self.confirm_step = {}
-        self.last_seen = time.monotonic()
+        self.active_flags = {"is_active": True, "to_delete": False}
+        self.message = None
+        self.subscribe_to_AR_user()
+        self.maintain_user()
 
-    def send_command(self, command):
-        self.ros_client.send_command(command)
+
+    def set_message(self, message):
+        self.message = message
+
+
+    def subscribe_to_AR_user(self):
+        topic = Topic("/{}/user_data_topic/{}".format(self.parent.topic_top_directory, self.id), Message)
+        self.user_subscription =  Subscriber(topic, callback=lambda msg: self.set_message(msg), transport=self.parent.tx)
+        self.user_subscription.subscribe()
+        
+
+    def confirm_active(self, message, active_flags):
+        if message.text == str(self.id):
+            active_flags["is_active"] = True
+
+
+
+    def checkin_thread(self, active_dict, interval = 2):
+        user_checkin_subcriber = Subscriber(self.parent.user_checkin_topic, callback=lambda msg: self.confirm_active(msg, active_dict), transport=self.parent.tx)
+        user_checkin_subcriber.subscribe()
+        while active_dict["is_active"]:
+            active_dict["is_active"] = False
+            time.sleep(interval)
+        active_dict["to_delete"] = True
+
+
+    def maintain_user(self, interval = 2):
+        thread = threading.Thread(target=self.checkin_thread, args=(self.active_flags, interval), daemon=True)
+        thread.start()
 
 
 if __name__ == "__main__":
