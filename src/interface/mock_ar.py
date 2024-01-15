@@ -12,6 +12,7 @@ from compas_eve.mqtt import MqttTransport
 
 class MockAR(object):
     def __init__(self):
+        print("instantiated mock AR")
         self.confirm_step = {}
         self.id = random.randint(0, 100000)
 
@@ -29,32 +30,35 @@ class MockAR(object):
 
         """subscribe to interface topic"""
         self.interface_topic = Topic("/{}/interface_topic".format(self.server_topic), Message)
-        self.interface_subscriber = Subscriber(self.interface_topic, callback=lambda msg: self.respond(msg['text']), transport=self.tx)        
+        self.interface_subscriber = Subscriber(self.interface_topic, callback=lambda msg: self.respond(msg), transport=self.tx)        
         self.interface_subscriber.subscribe()
-        print("my name is BOB, my number is {}".format(self.id))
         self.start_check_in()
+        print("running mock AR #{}".format(self.id))
+
 
     def start_check_in(self, interval = 1):
         thread = threading.Thread(target=self.check_in, args=(interval,))
         thread.start()
 
     def check_in(self, interval = 1):
-            self.user_checkin_publisher.publish(Message(text=str(self.id)))
-            time.sleep(interval)
+            while True:
+                self.user_checkin_publisher.publish(Message(text=str(self.id)))
+                print("published message: {} on topic: {}".format(self.id, self.user_checkin_publisher.topic.name))
+                time.sleep(interval)
 
 
-    def respond(self, name):
-        print("publishing message: {} on topic: {}".format(name, self.user_data_publisher.topic.name))
-        self.user_data_publisher.publish(Message(text="howdy {}, my number is {}".format(name, self.id)))
+    def respond(self, message):
+        print("recieved message: {} on topic: {}".format(message, self.interface_topic.name))
+        
+        time.sleep(0.5)
+        msg = {"type": "confirmation", "step": message["step"], "command": True}
+        print("publishing message: {} on topic: {}".format(msg, self.user_data_publisher.topic.name))
+        self.user_data_publisher.publish(Message(text="howdy {}, my number is {}".format(message, self.id)))
 
-
-    def run(self):
-        print("running")
-        while True:
-            self.check_in()
 
 
 if __name__ == "__main__":
     ar = MockAR()
-    ar.run()
+    while True:
+        pass
             
